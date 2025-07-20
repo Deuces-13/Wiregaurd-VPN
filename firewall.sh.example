@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Simple iptables firewall script for WireGuard VPN server on Raspberry Pi
+
+# Flush existing rules
+iptables -F
+iptables -X
+
+# Set default policies
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# Allow loopback interface (localhost)
+iptables -A INPUT -i lo -j ACCEPT
+
+# Allow established and related incoming connections
+iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
+
+# Allow SSH (port 22)
+iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+# (Optional) Restrict SSH to your trusted IP/range:
+# iptables -A INPUT -p tcp -s <YOUR_TRUSTED_IP>/32 --dport 22 -j ACCEPT
+
+# Allow WireGuard UDP port 51820 with basic rate limiting
+iptables -A INPUT -p udp --dport 51820 -m recent --update --seconds 60 --hitcount 10 -j DROP
+iptables -A INPUT -p udp --dport 51820 -j ACCEPT
+
+# (Optional alternative) Only allow WireGuard from a trusted external IP:
+# iptables -A INPUT -p udp --dport 51820 -s <YOUR_TRUSTED_IP>/32 -j ACCEPT
+
+# Log dropped packets (optional, useful for debugging)
+# iptables -A INPUT -j LOG --log-prefix "iptables dropped: " --log-level 4
+
+echo "Firewall rules applied."
