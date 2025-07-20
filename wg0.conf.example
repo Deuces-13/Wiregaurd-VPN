@@ -1,0 +1,22 @@
+# Do not alter the commented lines
+# They are used by wireguard-install
+# ENDPOINT examplevpn.ddns.net
+
+[Interface]
+Address = 10.8.12.1/24, fd12:3456:789a:1::1/64
+PrivateKey = <SERVER_PRIVATE_KEY>
+ListenPort = 51820
+
+# BEGIN_PEER Phone
+[Peer]
+PublicKey = <PHONE_PUBLIC_KEY>
+PresharedKey = <PHONE_PRESHARED_KEY>
+AllowedIPs = 10.8.12.2/32, fd12:3456:789a:1::2/128
+# END_PEER Phone
+
+# BEGIN_PEER Laptop
+[Peer]
+PublicKey = <LAPTOP_PUBLIC_KEY>
+PresharedKey = <LAPTOP_PRESHARED_KEY>
+AllowedIPs = 10.8.12.3/32, fd12:3456:789a:1::3/128
+# END_PEER Laptop
