@@ -1,0 +1,18 @@
+# Root crontab example
+# ┌───────────── minute (0 - 59)
+# │ ┌───────────── hour (0 - 23)
+# │ │ ┌───────────── day of month (1 - 31)
+# │ │ │ ┌───────────── month (1 - 12)
+# │ │ │ │ ┌───────────── day of week (0 - 6) (Sunday=0 or 7)
+# │ │ │ │ │
+# │ │ │ │ │
+# * * * * *  command to be executed
+
+# Update dynamic DNS every 5 minutes
+*/5 * * * * /home/user/duckdns/duck.sh >/dev/null 2>&1
+
+# Apply firewall rules on boot
+@reboot /etc/wireguard/firewall.sh
+
+# Run system update script daily at 3 AM
+0 3 * * * /usr/local/bin/auto-update.sh
