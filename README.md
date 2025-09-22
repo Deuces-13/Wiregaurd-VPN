@@ -7,7 +7,7 @@ This project sets up a secure WireGuard VPN server on a Raspberry Pi 4 (2GB RAM)
 - WireGuard VPN server configuration with key generation and firewall rules
 - DDNS client script to update public IP automatically (supports DuckDNS/No-IP)
 - Automatic system update script with logging and cron scheduling
-- Network diagram and firewall configuration documentation included
+- Firewall configuration documentation included
 
 ## Prerequisites
 - Raspberry Pi 4 or any computer that you will let run 24/7 
@@ -32,9 +32,6 @@ This project sets up a secure WireGuard VPN server on a Raspberry Pi 4 (2GB RAM)
 - Connect to your VPN remotely using the client config
 - Monitor update logs in `/var/log/wireguard-update.log`
 - View your current public IP at your DDNS dashboard
-
-## Network Diagram
-![Network Diagram](docs/network_diagram.png)
 
 ## Firewall Rules
 See detailed rules in [docs/firewall-rules.md](docs/firewall-rules.md)
